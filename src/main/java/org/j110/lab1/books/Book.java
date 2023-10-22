@@ -33,7 +33,7 @@ public class Book {
     }
 
     public String[] getAuthors() { // the getter returns a copy of the original array so that it cannot be modified from the outside
-        return Arrays.copyOf(authors, authors.length);
+        return authors != null ? Arrays.copyOf(authors, authors.length) : null;
     }
 
     public int getNumberOfAuthors(){
