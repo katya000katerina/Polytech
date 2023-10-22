@@ -8,17 +8,11 @@ public class Book {
     private int yearOfPublication;
     private String[] authors;
 
-    public Book(String title, Publisher publisher, int yearOfPublication) { // a constructor for a book with no authors
+    public Book(String title, Publisher publisher, int yearOfPublication, String ... authors) {
         setTitle(title);
         setPublisher(publisher);
         setYearOfPublication(yearOfPublication);
-    }
-    public Book(String title, Publisher publisher, int yearOfPublication, String[] authors) { // a constructor for a book with multiple authors
-        this(title, publisher, yearOfPublication);
         setAuthors(authors);
-    }
-    public Book(String title, Publisher publisher, int yearOfPublication, String author) { // a constructor for a book with one author
-        this(title, publisher, yearOfPublication, new String[]{author});
     }
     public String getTitle() {
         return title;
@@ -71,13 +65,20 @@ public class Book {
         else throw new IllegalArgumentException("Year of publication must be greater than zero");
     }
 
-    public void setAuthors(String[] authors) {
+    public void setAuthors(String... authors) {
+        if (authors == null){
+            throw new IllegalArgumentException("Null array cannot be passed as an argument");
+        }
+        if (authors.length == 0){
+            this.authors = null; // the array of authors is set to null because the book has no authors
+            return;
+        }
         for (String author : authors) {
             if (author == null) {
                 throw new IllegalArgumentException("Author cannot be null");
                 }
             }
-        this.authors = authors;
+        this.authors = Arrays.copyOf(authors, authors.length); // the setter creates a copy of the array so that it cannot be modified from the outside (in case an array is passed as an argument)
     }
     public void print(){
         System.out.printf("Title: %s\nPublisher: %s, %s\nYear of publication: %d\nAuthors: %s",
