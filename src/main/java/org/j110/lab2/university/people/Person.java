@@ -2,6 +2,8 @@ package org.j110.lab2.university.people;
 
 import org.j110.lab2.university.enums.Gender;
 
+import java.util.Collection;
+
 public class Person {
     private String name;
     private Gender gender;
@@ -52,6 +54,15 @@ public class Person {
     public static void printAll(Person[] people){
         if (people == null){
             throw new IllegalArgumentException("Null array cannot be printed");
+        }
+        for (Person person : people){
+            person.print();
+        }
+    }
+
+    public static void printAll(Collection<? extends Person> people){
+        if (people == null){
+            throw new IllegalArgumentException("Collection is not initialized");
         }
         for (Person person : people){
             person.print();
